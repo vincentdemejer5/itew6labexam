@@ -2,19 +2,30 @@ import { useState } from 'react'
 import { HeaderComponent } from '../components/HeaderComponent'
 import { StudentComponent } from '../components/StudentComponent'
 
+const STUDENTS = [
+  { id: '1', name: 'Jane Doe', course: 'Computer Science', year: 2 },
+  { id: '2', name: 'John Smith', course: 'Mathematics', year: 3 },
+  { id: '3', name: 'Alex Lee', course: 'Engineering', year: 1 },
+]
+
 export function HomePage() {
-  const [student, setStudent] = useState({
-    name: 'Jane Doe',
-    course: 'Computer Science',
-    year: 2,
-  })
+  const [students, setStudents] = useState(STUDENTS)
+  const [selectedId, setSelectedId] = useState(STUDENTS[0].id)
+
+  const student = students.find((s) => s.id === selectedId) ?? students[0]
 
   const handleResetYear = () => {
-    setStudent((prev) => ({ ...prev, year: 1 }))
+    setStudents((prev) =>
+      prev.map((s) => (s.id === selectedId ? { ...s, year: 1 } : s))
+    )
   }
 
   const handleAdvanceYear = () => {
-    setStudent((prev) => ({ ...prev, year: prev.year + 1 }))
+    setStudents((prev) =>
+      prev.map((s) =>
+        s.id === selectedId ? { ...s, year: s.year + 1 } : s
+      )
+    )
   }
 
   return (
@@ -24,6 +35,21 @@ export function HomePage() {
         subtitle="Components, props & state demo"
       />
       <main>
+        <div className="student-switch">
+          <label htmlFor="student-select">Show student:</label>
+          <select
+            id="student-select"
+            value={selectedId}
+            onChange={(e) => setSelectedId(e.target.value)}
+            className="student-select"
+          >
+            {students.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name} — {s.course}, Year {s.year}
+              </option>
+            ))}
+          </select>
+        </div>
         <StudentComponent
           name={student.name}
           course={student.course}

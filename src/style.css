@@ -101,6 +101,38 @@ body {
   font-size: 0.95rem;
 }
 
+/* Student switch (home) */
+.student-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.student-switch label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.student-select {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.student-select:hover,
+.student-select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
 /* Header (home) */
 .header {
   text-align: center;
